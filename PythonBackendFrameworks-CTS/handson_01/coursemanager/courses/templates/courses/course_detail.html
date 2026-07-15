@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h2>{{ course.title }}</h2>
+
+        <hr>
+
+        <p>
+            <strong>Instructor:</strong>
+            {{ course.instructor }}
+        </p>
+
+        <p>
+            <strong>Duration:</strong>
+            {{ course.duration }} Days
+        </p>
+        
+
+        <p>
+            <strong>Fee:</strong>
+            ₹{{ course.fee }}
+        </p>
+
+        <p>
+            <strong>Description:</strong>
+        </p>
+
+        <p>
+            {{ course.description }}
+        </p>
+
+        <a href="{% url 'course_list' %}" class="btn btn-secondary">
+            Back
+        </a>
+
+    </div>
+
+</div>
+<div class="mt-3">
+    <a href="{% url 'course_update' course.id %}" class="btn btn-warning">
+        Edit Course
+    </a>
+
+    <a href="{% url 'course_list' %}" class="btn btn-secondary">
+        Back
+    </a>
+    <a href="{% url 'course_delete' course.id %}" class="btn btn-danger">
+    Delete
+</a>
+</div>
+{% endblock %}

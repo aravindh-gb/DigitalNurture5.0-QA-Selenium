@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">Available Courses</h1>
+
+<form method="GET" class="mb-4">
+    <div class="input-group">
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search by title or instructor"
+            value="{{ query }}">
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+    </div>
+</form>
+
+<div class="row">
+
+{% for course in page_obj %}
+
+<div class="col-md-6">
+
+    <div class="card mb-3 shadow">
+
+        <div class="card-body">
+
+            <h4>{{ course.title }}</h4>
+
+            <p>
+                <strong>Instructor:</strong> {{ course.instructor }}
+            </p>
+
+            <p>
+                <strong>Duration:</strong> {{ course.duration }} Days
+            </p>
+
+            <p>
+                <strong>Fee:</strong> ₹{{ course.fee }}
+            </p>
+            <a href="{% url 'course_detail' course.id %}"
+   class="btn btn-primary">
+    View Details
+</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+   href="?q={{ query }}&page={{ page_obj.previous_page_number }}">
+    Previous
+</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">
+                {{ page_obj.number }}
+            </span>
+        </li>
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+   href="?q={{ query }}&page={{ page_obj.next_page_number }}">
+    Next
+</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+</div>
+
+{% endblock %}
